@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>T-REX – Tax Reconciliation & Export</title>
+
+  <!-- 
+    This meta tag makes the page responsive on phones and tablets.
+    It tells the browser: "scale the page to the device width."
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 
+    This links our external CSS file.
+    The browser will download and apply the styles from style.css.
+  -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- 
+    HEADER AREA
+    Contains the main title and the dark mode toggle switch.
+  -->
+  <div class="header-bar">
+    <!-- Main heading for the app -->
+    <h1>T-REX – Tax Reconciliation & Export</h1>
+
+    <!-- 
+      Dark mode toggle.
+      The checkbox will be controlled by JavaScript to switch themes.
+    -->
+    <div class="theme-toggle">
+      <label class="switch">
+        <!-- The checkbox input we use to turn dark mode on/off -->
+        <input type="checkbox" id="themeToggle" />
+        <!-- The visible sliding UI part of the switch -->
+        <span class="slider"></span>
+      </label>
+      <span class="theme-label">Dark Mode</span>
+    </div>
+  </div>
+
+  <!-- 
+    Introductory text explaining what this tool does.
+    Good for recruiters or users visiting the page.
+  -->
+  <p class="intro">
+    A simple tax reconciliation and reporting tool built with HTML, CSS, and JavaScript.
+    Enter adjustments, calculate taxable income, and build a report you can export as JSON or PDF.
+  </p>
+
+  <!-- 
+    "How It Works" Section
+    This gives a high-level overview of the steps.
+  -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Enter accounting income and tax adjustments.</li>
+      <li>Review the calculated taxable income and tax due.</li>
+      <li>Each calculation is added to the report table, which you can export.</li>
+    </ol>
+  </section>
+
+  <!-- 
+    CALCULATOR SECTION
+    The form where the user enters tax-related inputs.
+  -->
+  <section class="calculator">
+    <h2>Calculator</h2>
+
+    <!-- 
+      We give the form an id so that JavaScript could reference it later if needed.
+      Right now we just attach event listeners to the button instead of form submit.
+    -->
+    <form id="trex-form">
+      <!-- 
+        Each label + input pair is one field the user can fill in.
+        The "id" on the input is used by JavaScript to read its value.
+      -->
+      <label>Accounting Income Before Tax</label>
+      <input type="number" id="income" placeholder="e.g. 1500000" />
+
+      <label>Permanent Add-backs</label>
+      <input type="number" id="addbacks" placeholder="e.g. 50000" />
+
+      <label>Temporary Differences</label>
+      <input type="number" id="tempDiff" placeholder="e.g. 12000" />
+
+      <label>Special Deductions</label>
+      <input type="number" id="deductions" placeholder="e.g. 25000" />
+
+      <label>NOL Used</label>
+      <input type="number" id="nol" placeholder="e.g. 100000" />
+
+      <label>Federal Tax Rate (e.g. 0.21)</label>
+      <!-- 
+        step="0.01" means the input will increase/decrease by 0.01
+        when using the arrow buttons.
+      -->
+      <input type="number" id="taxRate" step="0.01" placeholder="0.21" />
+
+      <label>Estimated Payments</label>
+      <input type="number" id="payments" placeholder="e.g. 200000" />
+
+      <!-- 
+        Buttons:
+        - Calculate & Add to Report: performs the calculations and stores a row
+        - Download JSON: downloads all report rows as a JSON file
+        - Download PDF: downloads all report rows as a PDF report
+        JSON/PDF buttons start disabled until we have at least one row.
+      -->
+      <div class="button-row">
+        <button type="button" id="calcButton">Calculate & Add to Report</button>
+        <button type="button" id="downloadJson" disabled>Download JSON Report</button>
+        <button type="button" id="downloadPdf" disabled>Download PDF Report</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 
+    LATEST CALCULATION SECTION
+    This shows the results of the most recent calculation (one run).
+  -->
+  <section>
+    <h2>Latest Calculation</h2>
+    <!-- JavaScript will insert HTML into this div -->
+    <div id="summary"></div>
+  </section>
+
+  <!-- 
+    REPORTING SECTION
+    This is where the "reporting tool" part lives:
+    - A table listing all calculations (rows)
+    - A summary showing total tax, average taxable income, etc.
+  -->
+  <section class="reporting">
+    <h2>Report</h2>
+    <p class="report-intro">
+      Every calculation is stored below as a row in your report. Use the summary metrics
+      to get a quick overview, or export the full dataset.
+    </p>
+
+    <!-- 
+      Wrapper around the table.
+      overflow-x: auto in CSS lets it scroll horizontally on small screens.
+    -->
+    <div class="report-table-wrapper">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Book Income</th>
+            <th>Taxable Income</th>
+            <th>Tax Due / (Refund)</th>
+            <th>Date / Time</th>
+          </tr>
+        </thead>
+        <!-- 
+          The tbody starts empty.
+          JavaScript will insert <tr> rows into this element.
+        -->
+        <tbody id="reportTableBody">
+          <!-- Rows inserted by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 
+      Report summary box.
+      JavaScript will replace the text with summary statistics.
+    -->
+    <div id="reportSummary" class="report-summary">
+      No report data yet.
+    </div>
+  </section>
+
+  <!-- Simple footer with your name.
+       Replace "Your Name" with your actual name. -->
+  <footer class="footer">
+    <p>Built by Your Name — Portfolio Project</p>
+  </footer>
+
+  <!-- 
+    jsPDF library (from a CDN).
+    This gives us a global "window.jspdf" object we can use in script.js
+    to generate PDF files in the browser.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- 
+    Our own JavaScript file.
+    This must be loaded AFTER the HTML so the elements already exist.
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>

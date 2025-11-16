@@ -1,0 +1,316 @@
+/* 
+  Base styles for the whole page.
+  We set the font, background color, text color, max width, etc.
+*/
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: #f5f7fa;      /* Light gray background behind the content */
+  color: #2a2a2a;           /* Dark gray text color */
+  max-width: 900px;         /* Page will not get wider than 900px */
+  margin: 2rem auto;        /* Center horizontally with some space on top/bottom */
+  padding: 2rem 1.5rem;     /* Inner spacing so content isn't touching the edges */
+  line-height: 1.6;         /* Looser line spacing for readability */
+}
+
+/* 
+  Header bar with title on the left and dark-mode toggle on the right.
+  "flex" makes it easy to position items in a row.
+*/
+.header-bar {
+  display: flex;
+  justify-content: space-between; /* Push children to far left and right */
+  align-items: center;            /* Vertically center them */
+  flex-wrap: wrap;                /* Allow wrapping on small screens */
+  gap: 0.75rem;                   /* Space between items when they wrap */
+}
+
+/* Main h1 title styling */
+h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1a3d7c; /* Dark blue color */
+}
+
+/* All h2 headings */
+h2 {
+  margin-top: 2.2rem;
+  color: #1a3d7c;
+  border-bottom: 2px solid #d6ddeb; /* Underline effect */
+  padding-bottom: 0.35rem;
+}
+
+/* Intro paragraph under the header */
+.intro {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+/* Ordered list inside "How It Works" section */
+.how-it-works ol {
+  margin-left: 1.2rem;
+}
+
+/* Labels for the input fields */
+label {
+  display: block;       /* Make each label start on a new line */
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* Input fields styling */
+input {
+  width: 100%;                  /* Make inputs full width of their container */
+  padding: 0.65rem;
+  border-radius: 6px;
+  border: 1px solid #c4c9d4;
+  font-size: 1rem;
+  margin-top: 0.25rem;          /* Small space between label and input */
+}
+
+/* 
+  Container for the buttons.
+  flex-wrap allows them to wrap to a new line on smaller screens.
+*/
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.3rem;
+}
+
+/* Basic button styling */
+button {
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background: #1a3d7c;        /* Dark blue background */
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s; /* Smooth hover transitions */
+}
+
+/* Hover effect for enabled buttons */
+button:hover:not(:disabled) {
+  background: #244c97;
+}
+
+/* Disabled buttons appear semi-transparent and non-clickable */
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* Box showing the latest calculation results */
+#summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #eef2f9;        /* Light blue-ish background */
+  border-radius: 8px;
+  border: 1px solid #d4dbea;
+}
+
+/* Paragraphs inside the summary box */
+#summary p {
+  margin: 0.4rem 0;
+}
+
+/* Reporting section wrapper */
+.reporting {
+  margin-top: 2rem;
+}
+
+/* Intro text in the reporting section */
+.report-intro {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+/* Wrapper for the table to allow horizontal scrolling on small screens */
+.report-table-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+/* Basic report table styling */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;  /* Remove spaces between table cells */
+  font-size: 0.95rem;
+}
+
+/* Table cell and header styles */
+.report-table th,
+.report-table td {
+  border: 1px solid #d4dbea;
+  padding: 0.6rem 0.5rem;
+  text-align: left;
+  white-space: nowrap;        /* Prevent text wrapping inside cells */
+}
+
+/* Header row background color */
+.report-table th {
+  background: #e2e7f2;
+  font-weight: 600;
+}
+
+/* Summary box for report metrics (total tax, average taxable income, etc.) */
+.report-summary {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  background: #eef2f9;
+  border-radius: 8px;
+  border: 1px solid #d4dbea;
+  font-size: 0.95rem;
+}
+
+/* Footer at the very bottom of the page */
+.footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* ======================== */
+/* DARK MODE STYLES */
+/* ======================== */
+
+/* 
+  When the body has the class "dark-mode",
+  we override colors to create a dark theme.
+*/
+body.dark-mode {
+  background: #10141f;  /* Dark background */
+  color: #e4e7f2;       /* Light text color */
+}
+
+/* Dark mode headers */
+body.dark-mode h1,
+body.dark-mode h2 {
+  color: #dce3ff;
+}
+
+/* Dark mode intros */
+body.dark-mode .intro,
+body.dark-mode .report-intro {
+  color: #b8bfd8;
+}
+
+/* Dark mode inputs */
+body.dark-mode input {
+  background: #181d2b;
+  color: #e4e7f2;
+  border-color: #3a4461;
+}
+
+/* Dark mode summary and report-summary boxes */
+body.dark-mode #summary,
+body.dark-mode .report-summary {
+  background: #181d2b;
+  border-color: #3a4461;
+}
+
+/* Dark mode table header */
+body.dark-mode .report-table th {
+  background: #20263a;
+}
+
+/* Dark mode table borders */
+body.dark-mode .report-table th,
+body.dark-mode .report-table td {
+  border-color: #3a4461;
+}
+
+/* Dark mode buttons */
+body.dark-mode button {
+  background: #3048a0;
+}
+
+body.dark-mode button:hover:not(:disabled) {
+  background: #3d5cd1;
+}
+
+/* 
+  The dark mode toggle container.
+  Holds the switch and the "Dark Mode" label.
+*/
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* ========== TOGGLE SWITCH STYLES ========== */
+/* This creates an iOS-style slider switch. */
+
+/* Outer container of the switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+}
+
+/* Hide the default checkbox UI (we still keep it functional) */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Background track of the slider */
+.slider {
+  position: absolute;
+  inset: 0;                   /* top:0, right:0, bottom:0, left:0 */
+  background: #c4c9d4;
+  border-radius: 24px;
+  transition: 0.2s;
+}
+
+/* The round knob that slides left/right */
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+/* When the checkbox is checked, change the slider background color */
+.switch input:checked + .slider {
+  background: #1a3d7c;
+}
+
+/* Move the knob to the right when checked */
+.switch input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* ======================== */
+/* RESPONSIVE STYLES */
+/* ======================== */
+
+@media (max-width: 600px) {
+  /* On small screens, stack buttons vertically */
+  .button-row {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;     /* Full width buttons on mobile for easier tapping */
+  }
+
+  /* Header items stack vertically on small screens */
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
